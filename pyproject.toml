@@ -1,0 +1,8 @@
+[project]
+name = "research-os"
+version = "0.1.0"
+description = "Artifact-driven, resumable research workflows for Hermes Agent"
+requires-python = ">=3.9"
+
+[project.scripts]
+research-os = "research_os.engine:cli"
