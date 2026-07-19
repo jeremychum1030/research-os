@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SciFlow Pilot · 科研流導航者</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand-lockup">
+        <div class="brand-mark">S<span>·</span>F</div>
+        <div><strong>SciFlow</strong><small>PILOT / 0.1</small></div>
+      </div>
+      <div class="project-switcher">
+        <span class="eyebrow">ACTIVE PROJECT</span>
+        <button id="projectButton" class="project-button"><span><b>PRJ-2026-ONCO-09</b><small>肺癌早篩證據地圖</small></span><i>⌄</i></button>
+      </div>
+      <nav class="phase-nav" aria-label="Research phases">
+        <span class="eyebrow">RESEARCH SYSTEM</span>
+        <div id="phaseNav"></div>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="system-status"><span class="status-dot live"></span><span>STATE MACHINE</span><b>RUNNING</b></div>
+        <div class="mini-branches"><span>BRANCHES</span><div><i class="branch-line teal"></i><b>主流程</b><em>24 nodes</em></div><div><i class="branch-line amber"></i><b>模型敏感性</b><em>6 nodes</em></div></div>
+        <button class="sidebar-action" id="settingsButton">⚙ <span>Workflow settings</span></button>
+      </div>
+    </aside>
+
+    <main class="main-workspace">
+      <header class="topbar">
+        <div class="breadcrumb"><span>RESEARCH OS</span><b>/</b><strong>肺癌早篩證據地圖</strong><i>·</i><span>Last saved 2 min ago</span></div>
+        <div class="top-actions"><button class="icon-button" title="Search">⌕</button><button class="icon-button" title="Notifications">◌<sup>3</sup></button><div class="avatar">JC</div></div>
+      </header>
+
+      <section class="workspace-header">
+        <div><div class="kicker">EVIDENCE-DRIVEN RESEARCH / 04</div><h1>研究流控制台</h1><p>從研究問題到可重現發表，所有 handoff 都有來源與閘門。</p></div>
+        <div class="header-actions"><button class="ghost-button" id="saveButton">↧ 保存快照</button><button class="primary-button" id="runButton">▶ 繼續主流程</button></div>
+      </section>
+
+      <section class="metrics-strip">
+        <div class="metric"><span class="metric-label">PROJECT STATE</span><strong><i class="status-dot live"></i> EVIDENCE_SYNTHESIZED</strong><small>第 3 / 7 個研究艙</small></div>
+        <div class="metric"><span class="metric-label">QUALITY GATES</span><strong><em class="metric-number teal-text">08</em> / 11 PASSED</strong><small>2 個需要人工確認</small></div>
+        <div class="metric"><span class="metric-label">ARTIFACTS</span><strong><em class="metric-number">31</em> 個版本化輸出</strong><small>SHA-256 provenance active</small></div>
+        <div class="metric"><span class="metric-label">NEXT ACTION</span><strong>核驗 3 個來源</strong><small>Literature Retrieval · W21</small></div>
+      </section>
+
+      <section class="canvas-toolbar"><div class="view-switch"><button class="view-tab active" data-view="canvas">◫ Canvas</button><button class="view-tab" data-view="kanban">▤ Kanban</button></div><div class="canvas-controls"><button id="zoomOut">−</button><span id="zoomLabel">100%</span><button id="zoomIn">＋</button><span class="toolbar-divider"></span><button id="fitButton">⊡ Fit view</button><span class="toolbar-divider"></span><span class="legend"><i class="legend-dot teal"></i>完成 <i class="legend-dot amber"></i>需確認 <i class="legend-dot gray"></i>待輸入</span></div></section>
+
+      <section id="canvasView" class="flow-canvas" aria-label="Research workflow canvas"><div class="canvas-grid"></div><svg id="edges" class="edge-layer" aria-hidden="true"></svg><div id="nodeLayer" class="node-layer"></div><div class="canvas-hint"><span>⌘</span> Select a node to inspect · <span>↻</span> Rerun downstream</div></section>
+      <section id="kanbanView" class="kanban-view hidden"></section>
+    </main>
+
+    <aside class="inspector" id="inspector">
+      <div class="inspector-head"><div><span class="eyebrow">NODE INSPECTOR</span><h2 id="inspectorTitle">Literature Retrieval</h2></div><button class="close-button" id="closeInspector">×</button></div>
+      <div class="inspector-scroll">
+        <div class="selected-node-summary"><div class="node-symbol teal-bg">⌁</div><div><span id="inspectorId">W21 · EVIDENCE</span><strong id="inspectorStatus">QC PASSED</strong></div><button id="pauseButton" class="pause-button">Ⅱ</button></div>
+        <div class="inspector-section"><div class="section-heading"><span>OUTPUT ARTIFACT</span><b id="artifactVersion">v0.4</b></div><div class="artifact-card"><div class="artifact-icon">◫</div><div><strong id="artifactName">source_registry.json</strong><small>31 KB · Updated 2 min ago</small></div><button>↗</button></div><div class="hash-line">HASH <code id="artifactHash">a7c4…9f21</code><span class="verified-pill">✓ VERIFIED</span></div></div>
+        <div class="inspector-section"><div class="section-heading"><span>QUALITY GATE</span><b class="amber-text">2 / 3</b></div><div class="gate-list"><label class="gate-item checked"><input type="checkbox" checked><span>Source identity verified</span><b>✓</b></label><label class="gate-item checked"><input type="checkbox" checked><span>Duplicates removed</span><b>✓</b></label><label class="gate-item warning"><input type="checkbox"><span>Publication version confirmed</span><b>!</b></label></div><button class="gate-button" id="gateButton">Review quality gate →</button></div>
+        <div class="inspector-section"><div class="section-heading"><span>INPUTS</span><b>2 artifacts</b></div><div class="input-list"><div><i class="input-icon">⌁</i><span><b>search_protocol</b><small>W20 · v1.2</small></span><em>✓</em></div><div><i class="input-icon">?</i><span><b>source_constraints</b><small>Manual input · v1.0</small></span><em>✓</em></div></div></div>
+        <div class="inspector-section"><div class="section-heading"><span>PROVENANCE</span><b>TRACEABLE</b></div><div class="provenance"><div><span>Executed by</span><b>rw-literature-discovery</b></div><div><span>Run ID</span><code>run_8a12f0</code></div><div><span>Started</span><b>18 Jul 2026 · 10:42</b></div></div></div>
+        <div class="inspector-section"><div class="section-heading"><span>OPERATIONS</span></div><div class="operation-grid"><button id="rerunButton">↻ <span>Rerun node</span></button><button id="branchButton">⑂ <span>New branch</span></button><button id="rollbackButton">◀ <span>Rollback</span></button><button id="logButton">≡ <span>View run log</span></button></div></div>
+      </div>
+    </aside>
+  </div>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="workflow-registry.json.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
