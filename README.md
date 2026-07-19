@@ -19,7 +19,18 @@ python3 -m research_os new "Your research project"
 python3 -m unittest discover -s tests -v
 ```
 
-The current engine is deliberately deterministic and local. Hermes skills are the next execution adapter: each registered workflow can call its corresponding skill while retaining the same artifact and gate contracts.
+## Skill organization
+
+The research skill library is organized around one router instead of parallel orchestrators:
+
+- `research-os-router` is the single research entry point.
+- `rw-research-router` handles normal day-to-day stage routing.
+- `academic-pipeline` handles large end-to-end manuscript projects.
+- `rw-research-passport` persists project state and handoffs.
+- Domain skills such as `scanpy`, `pymc`, `statsmodels`, and `pysam` are conditional executors.
+- Evidence, statistics, provenance, reporting-guideline, and human-approval gates remain explicit.
+
+See [`docs/skill-catalog-and-routing.md`](docs/skill-catalog-and-routing.md), [`docs/skill-catalog.json`](docs/skill-catalog.json), and [`hermes/research-os-router/SKILL.md`](hermes/research-os-router/SKILL.md).
 
 ## Scientific boundary
 
